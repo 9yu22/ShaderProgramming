@@ -47,13 +47,17 @@ void Renderer::CreateVertexBufferObjects()
 	glBindBuffer(GL_ARRAY_BUFFER, m_VBORect);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(rect), rect, GL_STATIC_DRAW);
 
-	float vertices[] = { 0.0f,0.0f,0.0f, 1.0f,0.0f,0.0f, 1.0f,1.0f,0.0f };
+	float vertices[] = { 0.0f,0.0f,0.0f, 1.0f,0.0f,0.0f, 1.0f,1.0f,0.0f, 0.0f,1.0f,0.0f };
 
 	glGenBuffers(1, &m_TestVBO);// id생성(버퍼를 1개 생성, id=m_TestVBO)
 	glBindBuffer(GL_ARRAY_BUFFER, m_TestVBO); // ARRAY_BUFFER를 사용하는 작업대를 생성. 이 작업대에서 m_TestVBO를 다룰 예정. *Bind:용도를 구체화
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW); // GL_ARRAY_BUFFER작업대에 있는것을, vertices사이즈만큼, GL_STATIC_DRAW용도로 사용하겠다.
 	//GPU memory에 넣을 데이터 만들기 끝 => 따라서, 이제 이 데이터를 사용하는 코드를 작성하면됨.
 
+	float vertices_prac[] = { 0.0f,0.0f,0.0f, 1.0f,1.0f,0.0f, 0.0f,1.0f,0.0f };
+	glGenBuffers(1, &VBO_prac);
+	glBindBuffer(GL_ARRAY_BUFFER, VBO_prac);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_prac), vertices_prac, GL_STATIC_DRAW);
 }
 
 void Renderer::AddShader(GLuint ShaderProgram, const char* pShaderText, GLenum ShaderType)
@@ -203,11 +207,22 @@ void Renderer::DrawTest()
 
 	int attribPosition = glGetAttribLocation(m_SolidRectShader, "a_Position");
 	glEnableVertexAttribArray(attribPosition);
+	
 	glBindBuffer(GL_ARRAY_BUFFER, m_TestVBO);
-	glVertexAttribPointer(attribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);//데이터를 사용해서 그릴때, 데이터들중 어떤데이터부터 몇개씩 사용할지 설정.
+	glVertexAttribPointer(attribPosition, 4, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);//데이터를 사용해서 그릴때, 데이터들중 어떤데이터부터 몇개씩 사용할지 설정.
 							//GL_FLOAT형태로 3개를 읽어온다. 0번지 부터 읽는다. 
 
 	glDrawArrays(GL_TRIANGLES, 0, 3);//Primitive가 GL_TRIANGLES. 삼각형을 그린다. 0번째꺼 부터, 3개를 그린다. // 이 함수 호출 즉시 GPU가 동작한다.
+	//glDrawArrays(GL_TRIANGLES, 1, 3);
+	
+	/*
+	
+	사각형 만들기
+	//glBindBuffer(GL_ARRAY_BUFFER, VBO_prac);
+	//glVertexAttribPointer(attribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
+	//glDrawArrays(GL_TRIANGLES, 0, 3);
+	
+	*/
 
 	glDisableVertexAttribArray(attribPosition);
 }
