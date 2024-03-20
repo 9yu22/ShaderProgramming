@@ -19,6 +19,8 @@ void Renderer::Initialize(int windowSizeX, int windowSizeY)
 
 	//Load shaders
 	m_SolidRectShader = CompileShaders("./Shaders/SolidRect.vs", "./Shaders/SolidRect.fs");
+
+	m_ParticleShader = CompileShaders("./Shaders/Particle.vs", "./Shaders/Particle.fs");
 	
 	//Create VBOs
 	CreateVertexBufferObjects();
@@ -58,6 +60,21 @@ void Renderer::CreateVertexBufferObjects()
 	glGenBuffers(1, &VBO_prac);
 	glBindBuffer(GL_ARRAY_BUFFER, VBO_prac);
 	glBufferData(GL_ARRAY_BUFFER, sizeof(vertices_prac), vertices_prac, GL_STATIC_DRAW);
+
+
+
+	float size = 0.05;
+	float ParticleVerts[] = { -size, -size, 0,
+							   size,  size, 0, 
+							  -size,  size, 0,
+
+							  -size, -size, 0, 
+							   size, -size, 0,
+							   size,  size, 0};
+	glGenBuffers(1, &m_ParticleVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, m_ParticleVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(ParticleVerts), ParticleVerts, GL_STATIC_DRAW);
+
 }
 
 void Renderer::AddShader(GLuint ShaderProgram, const char* pShaderText, GLenum ShaderType)
@@ -165,7 +182,7 @@ GLuint Renderer::CompileShaders(char* filenameVS, char* filenameFS)
 	}
 
 	glUseProgram(ShaderProgram);
-	std::cout << filenameVS << ", " << filenameFS << " Shader compiling is done.";
+	std::cout << filenameVS << ", " << filenameFS << " Shader compiling is done." << std::endl;
 
 	return ShaderProgram;
 }
@@ -221,8 +238,31 @@ void Renderer::DrawTest()
 	//glBindBuffer(GL_ARRAY_BUFFER, VBO_prac);
 	//glVertexAttribPointer(attribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0);
 	//glDrawArrays(GL_TRIANGLES, 0, 3);
-	
+
 	*/
 
+	glDisableVertexAttribArray(attribPosition);
+}
+
+void Renderer::DrawParticle()
+{
+
+	//Program select
+	GLuint shader = m_ParticleShader;
+	glUseProgram(shader);
+
+	// 물리법칙 적용
+	int ulTime = glGetUniformLocation(shader, "u_Time"); 
+	glUniform1f(ulTime, m_ParticleTime);
+	m_ParticleTime += 0.01;
+	//
+
+	int attribPosition = glGetAttribLocation(shader, "a_Position");
+	glEnableVertexAttribArray(attribPosition);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_ParticleVBO);
+	glVertexAttribPointer(attribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0); //데이터를 사용해서 그릴때, 데이터들중 몇번지('0')부터 몇개씩 사용할지(3) 설정.
+
+	glDrawArrays(GL_TRIANGLES, 0, 6);//Primitive가 GL_TRIANGLES. 삼각형을 그린다. 읽어들인 정보 중 0번째꺼 부터, 6개를 이용해서 삼각형을 그린다. // 이 함수 호출 즉시 GPU가 동작한다.
 	glDisableVertexAttribArray(attribPosition);
 }

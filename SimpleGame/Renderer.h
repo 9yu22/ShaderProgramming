@@ -18,6 +18,8 @@ public:
 
 	void DrawTest();
 
+	void DrawParticle();
+
 private:
 	void Initialize(int windowSizeX, int windowSizeY);
 	bool ReadFile(char* filename, std::string *target);
@@ -37,5 +39,9 @@ private:
 	GLuint m_TestVBO = 0;
 
 	GLuint VBO_prac = 0;
+
+	GLuint m_ParticleVBO = 0; //0320 파티클 만들기
+	GLuint m_ParticleShader = 0;
+	float m_ParticleTime = 0;
 };
 
