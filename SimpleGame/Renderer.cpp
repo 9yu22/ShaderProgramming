@@ -25,6 +25,9 @@ void Renderer::Initialize(int windowSizeX, int windowSizeY)
 	//Create VBOs
 	CreateVertexBufferObjects();
 
+	//Create Particle Cloud
+	CreateParticleCloud(1000);
+
 	if (m_SolidRectShader > 0 && m_VBORect > 0)
 	{
 		m_Initialized = true;
@@ -217,6 +220,53 @@ void Renderer::GetGLPosition(float x, float y, float *newX, float *newY)
 	*newY = y * 2.f / m_WindowSizeY;
 }
 
+void Renderer::CreateParticleCloud(int numParticles)
+{
+	float centerX, centerY;
+	centerX = 0.f;
+	centerY = 0.f;
+	float size = 0.01f;
+	int particleCount = numParticles;
+	int vertexCount = particleCount * 6; //버텍스 갯수, 사각형을 만들어야 하니까 점이 6개.
+	int floatCount = vertexCount * 3; //x, y, z니까 3개
+
+	float* vertices = NULL; //동적할당
+	vertices = new float[floatCount];
+
+	int index = 0;
+	for (int i = 0; i < particleCount; i++) {
+		centerX = ((float)rand() / (float)RAND_MAX) * 2.f - 1.f;
+		centerY = ((float)rand() / (float)RAND_MAX) * 2.f - 1.f;
+		
+		vertices[index] = centerX - size; index++;
+		vertices[index] = centerY - size; index++;
+		vertices[index] = 0.f; index++;
+		vertices[index] = centerX + size; index++;
+		vertices[index] = centerY + size; index++;
+		vertices[index] = 0.f; index++;
+		vertices[index] = centerX - size; index++;
+		vertices[index] = centerY + size; index++;
+		vertices[index] = 0.f; index++; //triangle1
+
+		vertices[index] = centerX - size; index++;
+		vertices[index] = centerY - size; index++;
+		vertices[index] = 0.f; index++;
+		vertices[index] = centerX + size; index++;
+		vertices[index] = centerY - size; index++;
+		vertices[index] = 0.f; index++;
+		vertices[index] = centerX + size; index++;
+		vertices[index] = centerY + size; index++;
+		vertices[index] = 0.f; index++; //triangle2
+	}
+
+	glGenBuffers(1, &m_ParticleCloudVBO);
+	glBindBuffer(GL_ARRAY_BUFFER, m_ParticleCloudVBO);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * floatCount, vertices, GL_STATIC_DRAW);
+	m_ParticleCloudVertexCount = vertexCount;
+	delete[] vertices;
+
+}
+
 void Renderer::DrawTest()
 {
 	//Program select
@@ -254,8 +304,10 @@ void Renderer::DrawParticle()
 	// 물리법칙 적용
 	int ulTime = glGetUniformLocation(shader, "u_Time"); 
 	glUniform1f(ulTime, m_ParticleTime);
-	m_ParticleTime += 0.01;
+	m_ParticleTime += 0.016;
 	//
+	int ulPeriod = glGetUniformLocation(shader, "u_Period");
+	glUniform1f(ulPeriod, 100.0);
 
 	int attribPosition = glGetAttribLocation(shader, "a_Position");
 	glEnableVertexAttribArray(attribPosition);
@@ -266,3 +318,30 @@ void Renderer::DrawParticle()
 	glDrawArrays(GL_TRIANGLES, 0, 6);//Primitive가 GL_TRIANGLES. 삼각형을 그린다. 읽어들인 정보 중 0번째꺼 부터, 6개를 이용해서 삼각형을 그린다. // 이 함수 호출 즉시 GPU가 동작한다.
 	glDisableVertexAttribArray(attribPosition);
 }
+
+void Renderer::DrawParticleCloud()
+{
+
+	//Program select
+	GLuint shader = m_ParticleShader;
+	glUseProgram(shader);
+
+	// 물리법칙 적용
+	int ulTime = glGetUniformLocation(shader, "u_Time");
+	glUniform1f(ulTime, m_ParticleTime);
+	m_ParticleTime += 0.016;
+	//
+	int ulPeriod = glGetUniformLocation(shader, "u_Period");
+	glUniform1f(ulPeriod, 100.0);
+
+	int attribPosition = glGetAttribLocation(shader, "a_Position");
+	glEnableVertexAttribArray(attribPosition);
+
+	glBindBuffer(GL_ARRAY_BUFFER, m_ParticleCloudVBO);
+	glVertexAttribPointer(attribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 3, 0); //데이터를 사용해서 그릴때, 데이터들중 몇번지('0')부터 몇개씩 사용할지(3) 설정.
+
+	glDrawArrays(GL_TRIANGLES, 0, m_ParticleCloudVertexCount);//Primitive가 GL_TRIANGLES. 삼각형을 그린다. 읽어들인 정보 중 0번째꺼 부터, 6개를 이용해서 삼각형을 그린다. // 이 함수 호출 즉시 GPU가 동작한다.
+	glDisableVertexAttribArray(attribPosition);
+
+}
+
