@@ -161,7 +161,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Renderer.cpp" />
-    <ClCompile Include="SimpleGame.cpp" />
+    <ClCompile Include="SimpleGame.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
@@ -172,6 +174,8 @@
   <ItemGroup>
     <None Include="Shaders\Particle.fs" />
     <None Include="Shaders\Particle.vs" />
+    <None Include="Shaders\ParticleCloud.fs" />
+    <None Include="Shaders\ParticleCloud.vs" />
     <None Include="Shaders\SolidRect.fs" />
     <None Include="Shaders\SolidRect.vs" />
   </ItemGroup>
