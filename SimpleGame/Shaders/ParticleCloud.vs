@@ -3,6 +3,7 @@
 in vec3 a_Position;
 in float a_StartTime; //vbo하나에 4개의 정보를 준다음에 뜯어서 사용할수있음. in 1개당 1개의 vbo가 필요한것이 아님!
 in vec3 a_Velocity;
+in float a_LifeTime;
 
 const vec3 c_StartPos = vec3(-1, 0, 0);
 const vec3 c_Velocity = vec3(2.0, 0, 0);
@@ -51,12 +52,12 @@ void Basic(){
 void Velocity(){
 	float t = u_Time - a_StartTime;
 	vec4 newPosition = vec4(a_Position, 1);
-	float LifeTime;
 
 	if(t>0)
 	{
+		t = a_LifeTime*fract(t/a_LifeTime);
 		newPosition.xy = newPosition.xy + a_Velocity.xy*t;
-		//LifeTime*fract(u_Time/LifeTime);
+		
 	}
 	else
 	{

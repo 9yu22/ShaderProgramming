@@ -230,9 +230,10 @@ void Renderer::CreateParticleCloud(int numParticles)
 	float size = 0.01f;
 	int particleCount = numParticles;
 	int vertexCount = particleCount * 6; //버텍스 갯수, 사각형을 만들어야 하니까 점이 6개.
-	int floatCount = vertexCount * (3+1+3); //x, y, z니까 3개 + 각각의 startTime을 위해 추가 + 속력 어쩌고 추가 
+	int floatCount = vertexCount * (3+1+3+1); //x, y, z니까 3개 + 각각의 startTime을 위해 추가 + 속력 어쩌고 추가, lifeTime
 	
 	float vx, vy, vz;
+	float lifeTime;
 
 	float* vertices = NULL; //동적할당
 	vertices = new float[floatCount];
@@ -247,14 +248,16 @@ void Renderer::CreateParticleCloud(int numParticles)
 		vx = ((float)rand() / (float)RAND_MAX) * 2.f - 1.f;
 		vy = ((float)rand() / (float)RAND_MAX) * 2.f - 1.f;
 		vz = ((float)rand() / (float)RAND_MAX) * 2.f - 1.f;
-		
+		lifeTime = 8.f * ((float)rand() / (float)RAND_MAX)+1.f;
+
 		vertices[index] = centerX - size; index++;
 		vertices[index] = centerY - size; index++;
 		vertices[index] = 0.f; index++;
 		vertices[index] = startTime; index++;
 		vertices[index] = vx; index++;
 		vertices[index] = vy; index++;
-		vertices[index] = vz; index++;//vertex1
+		vertices[index] = vz; index++;
+		vertices[index] = lifeTime; index++;//vertex1
 
 		vertices[index] = centerX + size; index++;
 		vertices[index] = centerY + size; index++;
@@ -262,7 +265,8 @@ void Renderer::CreateParticleCloud(int numParticles)
 		vertices[index] = startTime; index++;
 		vertices[index] = vx; index++;
 		vertices[index] = vy; index++;
-		vertices[index] = vz; index++;//vertex2
+		vertices[index] = vz; index++;
+		vertices[index] = lifeTime; index++;//vertex2
 
 		vertices[index] = centerX - size; index++;
 		vertices[index] = centerY + size; index++;
@@ -270,7 +274,8 @@ void Renderer::CreateParticleCloud(int numParticles)
 		vertices[index] = startTime; index++;
 		vertices[index] = vx; index++;
 		vertices[index] = vy; index++;
-		vertices[index] = vz; index++;//vertex3 
+		vertices[index] = vz; index++;
+		vertices[index] = lifeTime; index++;//vertex3 
 													//triangle1
 
 		vertices[index] = centerX - size; index++;
@@ -280,6 +285,7 @@ void Renderer::CreateParticleCloud(int numParticles)
 		vertices[index] = vx; index++;
 		vertices[index] = vy; index++;
 		vertices[index] = vz; index++;
+		vertices[index] = lifeTime; index++;
 
 		vertices[index] = centerX + size; index++;
 		vertices[index] = centerY - size; index++;
@@ -288,6 +294,7 @@ void Renderer::CreateParticleCloud(int numParticles)
 		vertices[index] = vx; index++;
 		vertices[index] = vy; index++;
 		vertices[index] = vz; index++;
+		vertices[index] = lifeTime; index++;
 
 		vertices[index] = centerX + size; index++;
 		vertices[index] = centerY + size; index++;
@@ -295,7 +302,8 @@ void Renderer::CreateParticleCloud(int numParticles)
 		vertices[index] = startTime; index++;
 		vertices[index] = vx; index++;
 		vertices[index] = vy; index++;
-		vertices[index] = vz; index++;//triangle2
+		vertices[index] = vz; index++;
+		vertices[index] = lifeTime; index++;//triangle2
 	}
 
 	glGenBuffers(1, &m_ParticleCloudVBO);
@@ -371,24 +379,30 @@ void Renderer::DrawParticleCloud()
 	m_ParticleTime += 0.016;
 	//
 	int ulPeriod = glGetUniformLocation(shader, "u_Period");
-	glUniform1f(ulPeriod, 5.0);
+	glUniform1f(ulPeriod, 10.0);
 
 	int attribPosition = glGetAttribLocation(shader, "a_Position"); //안사용하면 -1이 들어감.
 	glEnableVertexAttribArray(attribPosition);
 	glBindBuffer(GL_ARRAY_BUFFER, m_ParticleCloudVBO);
-	glVertexAttribPointer(attribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(float) *7, 0); //데이터를 사용해서 그릴때, 데이터들중 몇번지('0')부터 몇개씩 사용할지(3) 설정.
+	glVertexAttribPointer(attribPosition, 3, GL_FLOAT, GL_FALSE, sizeof(float) *8, 0); //데이터를 사용해서 그릴때, 데이터들중 몇번지('0')부터 몇개씩 사용할지(3) 설정.
 	                                                             //다음에 쓸 수 있는 정보가 4개 간격
 
 	int attribStartTime = glGetAttribLocation(shader, "a_StartTime");
 	glEnableVertexAttribArray(attribStartTime);
 	glBindBuffer(GL_ARRAY_BUFFER, m_ParticleCloudVBO); //굳이 안해줘도되긴함. 근데 해주는게 좋음. 시간도 거의 안듦.
-	glVertexAttribPointer(attribStartTime, 1, GL_FLOAT, GL_FALSE, sizeof(float) * 7, (GLvoid*)(sizeof(float)*3)); //데이터를 사용해서 그릴때, 데이터들중 몇번지('0')부터 몇개씩 사용할지(3) 설정.
+	glVertexAttribPointer(attribStartTime, 1, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (GLvoid*)(sizeof(float)*3)); //데이터를 사용해서 그릴때, 데이터들중 몇번지('0')부터 몇개씩 사용할지(3) 설정.
 	                                      //값(float 1개)         //다음에 쓸 수있는 정보는 4번째부터.. //3개를 건너띈 다음부터 읽어라.    
 
 	int attribVelocity = glGetAttribLocation(shader, "a_Velocity");
 	glEnableVertexAttribArray(attribVelocity);
 	glBindBuffer(GL_ARRAY_BUFFER, m_ParticleCloudVBO);
-	glVertexAttribPointer(attribVelocity, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 7, (GLvoid*)(sizeof(float) * 4));
+	glVertexAttribPointer(attribVelocity, 3, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (GLvoid*)(sizeof(float) * 4));
+
+
+	int attribLifeTime = glGetAttribLocation(shader, "a_LifeTime");
+	glEnableVertexAttribArray(attribLifeTime);
+	glBindBuffer(GL_ARRAY_BUFFER, m_ParticleCloudVBO);
+	glVertexAttribPointer(attribLifeTime, 1, GL_FLOAT, GL_FALSE, sizeof(float) * 8, (GLvoid*)(sizeof(float) * 7));
 
 
 	glDrawArrays(GL_TRIANGLES, 0, m_ParticleCloudVertexCount);//Primitive가 GL_TRIANGLES. 삼각형을 그린다. 읽어들인 정보 중 0번째꺼 부터, 6개를 이용해서 삼각형을 그린다. // 이 함수 호출 즉시 GPU가 동작한다.
