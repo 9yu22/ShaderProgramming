@@ -3,12 +3,16 @@
   "WorkspaceRootPath": "C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{25179D6C-FA85-4619-8EDB-AC241382F6CA}|SimpleGame\\SimpleGame.vcxproj|C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\Shaders\\ParticleCloud.vs||{8B382828-6202-11D1-8870-0000F87579D2}",
+      "RelativeMoniker": "D:0:0:{25179D6C-FA85-4619-8EDB-AC241382F6CA}|SimpleGame\\SimpleGame.vcxproj|solutionrelative:SimpleGame\\Shaders\\ParticleCloud.vs||{8B382828-6202-11D1-8870-0000F87579D2}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{25179D6C-FA85-4619-8EDB-AC241382F6CA}|SimpleGame\\SimpleGame.vcxproj|C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\Renderer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{25179D6C-FA85-4619-8EDB-AC241382F6CA}|SimpleGame\\SimpleGame.vcxproj|solutionrelative:SimpleGame\\Renderer.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{25179D6C-FA85-4619-8EDB-AC241382F6CA}|SimpleGame\\SimpleGame.vcxproj|C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\Shaders\\ParticleCloud.vs||{8B382828-6202-11D1-8870-0000F87579D2}",
-      "RelativeMoniker": "D:0:0:{25179D6C-FA85-4619-8EDB-AC241382F6CA}|SimpleGame\\SimpleGame.vcxproj|solutionrelative:SimpleGame\\Shaders\\ParticleCloud.vs||{8B382828-6202-11D1-8870-0000F87579D2}"
+      "AbsoluteMoniker": "D:0:0:{25179D6C-FA85-4619-8EDB-AC241382F6CA}|SimpleGame\\SimpleGame.vcxproj|C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\Shaders\\SolidRect.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}",
+      "RelativeMoniker": "D:0:0:{25179D6C-FA85-4619-8EDB-AC241382F6CA}|SimpleGame\\SimpleGame.vcxproj|solutionrelative:SimpleGame\\Shaders\\SolidRect.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{25179D6C-FA85-4619-8EDB-AC241382F6CA}|SimpleGame\\SimpleGame.vcxproj|C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\Shaders\\Particle.vs||{8B382828-6202-11D1-8870-0000F87579D2}",
@@ -21,10 +25,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{25179D6C-FA85-4619-8EDB-AC241382F6CA}|SimpleGame\\SimpleGame.vcxproj|C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\Renderer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{25179D6C-FA85-4619-8EDB-AC241382F6CA}|SimpleGame\\SimpleGame.vcxproj|solutionrelative:SimpleGame\\Renderer.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{25179D6C-FA85-4619-8EDB-AC241382F6CA}|SimpleGame\\SimpleGame.vcxproj|C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\Shaders\\SolidRect.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}",
-      "RelativeMoniker": "D:0:0:{25179D6C-FA85-4619-8EDB-AC241382F6CA}|SimpleGame\\SimpleGame.vcxproj|solutionrelative:SimpleGame\\Shaders\\SolidRect.fs||{8A5AA6CF-46E3-4520-A70A-7393D15233E9}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{25179D6C-FA85-4619-8EDB-AC241382F6CA}|SimpleGame\\SimpleGame.vcxproj|C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\stdafx.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
@@ -54,17 +54,17 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "ParticleCloud.vs",
               "DocumentMoniker": "C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\Shaders\\ParticleCloud.vs",
               "RelativeDocumentMoniker": "SimpleGame\\Shaders\\ParticleCloud.vs",
               "ToolTip": "C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\Shaders\\ParticleCloud.vs",
               "RelativeToolTip": "SimpleGame\\Shaders\\ParticleCloud.vs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAADYAAAACAAAA",
+              "ViewState": "AQIAACEAAAAAAAAAAAAAADoAAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
               "WhenOpened": "2024-03-27T06:50:38.685Z",
               "EditorCaption": ""
@@ -107,7 +107,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Particle.vs",
               "DocumentMoniker": "C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\Shaders\\Particle.vs",
               "RelativeDocumentMoniker": "SimpleGame\\Shaders\\Particle.vs",
@@ -120,7 +120,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Renderer.h",
               "DocumentMoniker": "C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\Renderer.h",
               "RelativeDocumentMoniker": "SimpleGame\\Renderer.h",
@@ -133,7 +133,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 2,
               "Title": "SolidRect.fs",
               "DocumentMoniker": "C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\Shaders\\SolidRect.fs",
               "RelativeDocumentMoniker": "SimpleGame\\Shaders\\SolidRect.fs",
@@ -141,17 +141,18 @@
               "RelativeToolTip": "SimpleGame\\Shaders\\SolidRect.fs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
-              "WhenOpened": "2024-03-13T07:42:14.479Z"
+              "WhenOpened": "2024-03-13T07:42:14.479Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "Renderer.cpp",
               "DocumentMoniker": "C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\Renderer.cpp",
               "RelativeDocumentMoniker": "SimpleGame\\Renderer.cpp",
               "ToolTip": "C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\Renderer.cpp",
               "RelativeToolTip": "SimpleGame\\Renderer.cpp",
-              "ViewState": "AQIAAEwBAAAAAAAAAAAAwGQBAAA9AAAA",
+              "ViewState": "AQIAAHMBAAAAAAAAAAAAwIgBAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-03-13T04:25:33.741Z",
               "EditorCaption": ""
@@ -170,7 +171,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "SimpleGame.cpp",
               "DocumentMoniker": "C:\\Users\\ehtlf\\OneDrive\\\uBC14\uD0D5 \uD654\uBA74\\\uC170\uC774\uB354\\BaseProject\\SimpleGame\\SimpleGame.cpp",
               "RelativeDocumentMoniker": "SimpleGame\\SimpleGame.cpp",
